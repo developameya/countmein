@@ -1,5 +1,9 @@
 import 'package:count_me_in/common/constants.dart';
+import 'package:count_me_in/common/service_locator.dart';
+import 'package:count_me_in/features/counter/state/count_bloc.dart';
+import 'package:count_me_in/features/counter/state/count_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///Screen with only buttons to manipulate the count.
 ///
@@ -23,9 +27,14 @@ class CountButtonsScreen extends StatelessWidget {
             'This number is everywhere!',
           ),
           const SizedBox(height: 20),
-          Text(
-            "0",
-            style: Theme.of(context).textTheme.headlineMedium,
+          BlocBuilder<CountBloc, int>(
+            bloc: sl<CountBloc>(),
+            builder: (context, state) {
+              return Text(
+                '$state',
+                style: Theme.of(context).textTheme.headlineMedium,
+              );
+            },
           ),
           const SizedBox(height: 50),
           Row(
@@ -34,6 +43,7 @@ class CountButtonsScreen extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   //TODO: increase the count.
+                  sl<CountBloc>().add(IncreaseCount());
                 },
                 icon: const Icon(Icons.add),
                 label: const Text(increamentButtonLabel),
@@ -43,6 +53,7 @@ class CountButtonsScreen extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   //TODO: decrease the count.
+                  sl<CountBloc>().add(DecreaseCount());
                 },
                 icon: const Icon(Icons.remove),
                 label: const Text(decreamentButtonLabel),
