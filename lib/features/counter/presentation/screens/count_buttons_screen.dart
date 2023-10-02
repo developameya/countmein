@@ -1,4 +1,4 @@
-import 'package:count_me_in/features/core/common/constants.dart';
+import 'package:count_me_in/common/constants.dart';
 import 'package:flutter/material.dart';
 
 ///Screen with only buttons to manipulate the count.

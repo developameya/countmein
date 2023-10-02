@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
-import 'package:count_me_in/features/core/common/beamer_delegate.dart';
-import 'package:count_me_in/features/core/common/constants.dart';
+import 'package:count_me_in/common/beamer_delegate.dart';
+import 'package:count_me_in/common/constants.dart';
 import 'package:flutter/material.dart';
 
 ///Application to be presented.
