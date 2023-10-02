@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(countPrompt),
+            const SizedBox(height: 20),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
