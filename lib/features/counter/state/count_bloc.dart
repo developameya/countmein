@@ -3,7 +3,7 @@ import 'package:count_me_in/features/counter/state/count_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-///Updates the state for all the bloc builders
+///Updates the count for all the bloc builders
 ///listening to this bloc.
 @singleton
 class CountBloc extends Bloc<CountEvent, int> {

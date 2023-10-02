@@ -1,37 +1,21 @@
 import 'package:beamer/beamer.dart';
 import 'package:count_me_in/common/constants.dart';
+import 'package:count_me_in/common/service_locator.dart';
 import 'package:count_me_in/features/counter/presentation/screens/count_buttons_screen.dart';
+import 'package:count_me_in/features/counter/presentation/widgets/count_action_button_widget.dart';
+import 'package:count_me_in/features/counter/presentation/widgets/count_widget.dart';
+import 'package:count_me_in/features/counter/state/count_bloc.dart';
+import 'package:count_me_in/features/counter/state/count_event.dart';
 import 'package:flutter/material.dart';
 
 ///Screen with the counter.
 ///
 ///Provides buttons to increase or decrease the count.
 ///
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   static const routeName = '/';
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      if (_counter != 0) {
-        _counter--;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,47 +25,33 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(appTitle),
         actions: [
           IconButton(
-            onPressed: () {
-              //TODO: navigate to buttons screen
-              context.beamToNamed(CountButtonsScreen.routeName);
-            },
+            onPressed: () => context.beamToNamed(CountButtonsScreen.routeName),
             icon: const Icon(Icons.arrow_circle_right_rounded),
           )
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(countPrompt),
-            const SizedBox(height: 20),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Text(countPrompt),
+            SizedBox(height: 20),
+            CountWidget()
           ],
         ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              heroTag: null,
-              onPressed: _incrementCounter,
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            ),
+          CountActionButtonWidget(
+            iconData: Icons.remove,
+            tooltip: 'Decrement',
+            onPressed: () => sl<CountBloc>().add(DecreaseCount()),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              heroTag: null,
-              onPressed: _decrementCounter,
-              tooltip: 'Decrement',
-              child: const Icon(Icons.remove),
-            ),
+          CountActionButtonWidget(
+            iconData: Icons.add,
+            tooltip: 'Increment',
+            onPressed: () => sl<CountBloc>().add(IncreaseCount()),
           ),
         ],
       ),
